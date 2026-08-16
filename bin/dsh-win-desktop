@@ -1,0 +1,15 @@
+﻿#!/usr/bin/env bash
+# dsh-win-desktop — Zero-dependency Linux/macOS launcher
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+NODE_EXE=""
+if [ -f "$ROOT_DIR/node" ]; then
+    NODE_EXE="$ROOT_DIR/node"
+elif command -v node &>/dev/null; then
+    NODE_EXE="$(command -v node)"
+fi
+if [ -z "$NODE_EXE" ]; then
+    echo "Error: Node.js not found. Please install Node.js >= 22." >&2
+    exit 1
+fi
+exec "$NODE_EXE" "$ROOT_DIR/scripts/standalone-dsh.cjs" "$@"

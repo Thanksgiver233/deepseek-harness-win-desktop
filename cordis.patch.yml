@@ -1,0 +1,21 @@
+﻿# @deepseek-ai/dsh-win-desktop — Cordis patch overlay
+#
+# This patch is applied as a bundle layer on top of dsh-base.
+# Zero-dependency install: the plugin ships pre-built lib/ artifacts.
+#
+# Install: dsh-win-desktop install
+# Or:      dsh plugin --profile web add github:deepseek-ai/deepseek-harness-win-desktop
+
+# ── host rows ─────────────────────────────────────────────────────────────────
+
+- id: win-desktop
+  name: '@deepseek-ai/dsh-win-desktop'
+  config:
+    port: 8765
+    host: '127.0.0.1'
+    autoStart: false
+
+# ── client rows ───────────────────────────────────────────────────────────────
+# The dsh.client declaration in package.json causes the modules row to pick up
+# lib/client.js and inject it into window.__DSH_BOOT__. No additional insert
+# is needed here.
